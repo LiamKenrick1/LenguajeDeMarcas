@@ -1,8 +1,117 @@
-<html>
-    <head>
-        <tittle>Titulo</tittle>
-    </head>
-    <body>
-        <h1>Test</h1>
-    </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Práctica HTML5 - Dialog, Progress y Drag & Drop</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        dialog {
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .draggable {
+            width: 120px;
+            height: 60px;
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Práctica HTML5</h1>
+
+    <h2>Ejercicio 1 - Dialog</h2>
+
+    <dialog id="miDialogo">
+        <p>Este es un mensaje en una ventana de diálogo.</p>
+        <button id="cerrar">Cerrar</button>
+    </dialog>
+
+    <button id="abrir">Abrir diálogo</button>
+
+    <h2>Ejercicio 2 - Progress</h2>
+
+    <p>
+        Cargando archivo:
+        <progress id="barra" value="0" max="100">0%</progress>
+        <span id="textoProgreso">0%</span>
+    </p>
+
+    <h2>Ejercicio 3 - Drag and Drop</h2>
+
+    <div class="draggable"
+         draggable="true"
+         ondragstart="inicioDrag()"
+         ondragend="finDrag()">
+        Arrástrame
+    </div>
+
+    <script>
+        const dialogo = document.getElementById('miDialogo');
+        const botonAbrir = document.getElementById('abrir');
+        const botonCerrar = document.getElementById('cerrar');
+
+        botonAbrir.onclick = () => {
+            dialogo.showModal();
+        };
+
+        botonCerrar.onclick = () => {
+            dialogo.close();
+        };
+
+        const barra = document.getElementById('barra');
+        const textoProgreso = document.getElementById('textoProgreso');
+        let progreso = 0;
+
+        setInterval(() => {
+            progreso += 10;
+
+            if (progreso > 100) {
+                progreso = 0; 
+            }
+
+            barra.value = progreso;
+            textoProgreso.textContent = progreso + '%';
+        }, 500);
+
+        
+        function inicioDrag() {
+            console.log('El arrastre ha comenzado');
+        }
+
+        function finDrag() {
+            console.log('El elemento ha sido soltado');
+        }
+    </script>
+
+</body>
 </html>
